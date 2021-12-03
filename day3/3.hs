@@ -27,13 +27,11 @@ day3b input = (*) <$> ((toDecimal . (getRating True [])) <$> inputs) <*> ((toDec
 
 getRating :: Bool -> BinaryNumber -> [BinaryNumber] -> BinaryNumber
 getRating _ xs [ys]  = (reverse xs) ++ ys
-getRating most xs ns = getRating most (keep : xs) $ map tail $ filter ((== keep). head) ns
+getRating most xs ns = getRating most (keep : xs) $ map tail $ filter ((== keep) . head) ns
     where
         count = sum $ map head ns
         n = length ns
-        keep = case compare (2 * count) n of EQ -> if most then 1 else 0
-                                             GT -> if most then 1 else 0
-                                             LT -> if most then 0 else 1
+        keep = if ((2 * count) >= n) == most then 1 else 0
 
 main = do
     input <- getContents
