@@ -1,20 +1,17 @@
 type BinaryNumber = [Int]
 
-toDecimal :: BinaryNumber -> Integer
-toDecimal [] = 0
-toDecimal (1:xs) = 2 ^ (length xs) + toDecimal xs
-toDecimal (0:xs) = toDecimal xs
+toDecimal :: BinaryNumber -> Int
+toDecimal = foldl (\a x -> 2 * a + x) 0
 
 toBinary :: [Char] -> Maybe BinaryNumber
-toBinary [] = Just []
-toBinary (x:xs) = (:) <$> h <*> (toBinary xs)
+toBinary = foldr (\x acc -> (:) <$> (parseBit x) <*> acc) (Just [])
     where
-        h = case x of '0' -> Just 0
-                      '1' -> Just 1
-                      otherwise -> Nothing
+        parseBit '0' = Just 0
+        parseBit '1' = Just 1
+        parseBit  _  = Nothing
 
 
-day3a :: String -> Maybe Integer
+day3a :: String -> Maybe Int
 day3a input = (*) <$> (toDecimal <$> gamma) <*> (toDecimal <$> epsilon)
     where
         inputs = sequence $ map toBinary $ lines input
@@ -23,7 +20,7 @@ day3a input = (*) <$> (toDecimal <$> gamma) <*> (toDecimal <$> epsilon)
         gamma = map (\x -> if (2*x > n) then 1 else 0) . foldl (zipWith (+)) (replicate k 0) <$> inputs
         epsilon = map (1-) <$> gamma
 
-day3b :: String -> Maybe Integer
+day3b :: String -> Maybe Int
 day3b input = (*) <$> ((toDecimal . (getRating True [])) <$> inputs) <*> ((toDecimal . (getRating False [])) <$> inputs)
     where
         inputs = sequence $ map toBinary $ lines input
