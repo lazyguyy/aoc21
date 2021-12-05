@@ -1,6 +1,6 @@
 # aoc21
 
-This repository contains my attempts to solve the [advent of code challenges](adventofcode.com) in haskell. As I am not very familiar with the language, experienced users may cringe :)
+This repository contains my attempts to solve the [advent of code challenges](www.adventofcode.com) in haskell. As I am not very familiar with the language, experienced users may cringe :)
 
 However, feedback is always appreciated!
 
