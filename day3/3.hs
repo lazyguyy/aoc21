@@ -17,7 +17,7 @@ day3a input = (*) <$> (toDecimal <$> gamma) <*> (toDecimal <$> epsilon)
         inputs = sequence $ map toBinary $ lines input
         n = length $ lines input
         k = length $ head $ lines input
-        gamma = map (\x -> if (2*x > n) then 1 else 0) . foldl (zipWith (+)) (replicate k 0) <$> inputs
+        gamma = map (\x -> if (2 * x > n) then 1 else 0) . foldl (zipWith (+)) (replicate k 0) <$> inputs
         epsilon = map (1-) <$> gamma
 
 day3b :: String -> Maybe Int
